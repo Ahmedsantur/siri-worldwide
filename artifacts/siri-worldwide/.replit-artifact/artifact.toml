@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "SIRI Worldwide"
+description = "A mobile-first private chat experience for two people to send messages, switch between English and Swahili, and stay connected with a fast, warm interface."
+version = "1.0.0"
+id = "artifacts/siri-worldwide"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23797
+
+[services.development]
+run = "pnpm --filter @workspace/siri-worldwide run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/siri-worldwide", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/siri-worldwide/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23797"
+BASE_PATH = "/"

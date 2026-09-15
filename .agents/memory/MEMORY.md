@@ -1,0 +1,1 @@
+- [Firebase package install](firebase-package-install.md) — in this pnpm workspace, add app dependencies with a package filter to avoid the workspace-root guard.
