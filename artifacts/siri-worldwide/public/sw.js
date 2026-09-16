@@ -1,4 +1,4 @@
-const CACHE_NAME = 'siri-worldwide-v1';
+const CACHE_NAME = 'siri-worldwide-v2';
 const APP_ROOT = new URL('./', self.location).href;
 const SHELL_URL = APP_ROOT;
 
