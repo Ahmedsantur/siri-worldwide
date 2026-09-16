@@ -4,6 +4,7 @@ import { AlertCircle, Check, CheckCheck, Clock3, Globe2, Info, LoaderCircle, Mes
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { InstallPrompt } from '@/components/install-prompt';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import { Link } from 'wouter';
@@ -457,6 +458,7 @@ function App() {
           <Router />
         </WouterRouter>
         <Toaster />
+        <InstallPrompt />
       </TooltipProvider>
     </QueryClientProvider>
   );
