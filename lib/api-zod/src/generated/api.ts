@@ -18,14 +18,14 @@ export const HealthCheckResponse = zod.object({
 
 
 /**
- * Checks whether a phone number matches the configured admin phone secret.
- * @summary Verify an admin phone number
+ * Checks whether an email address matches the configured admin email secret.
+ * @summary Verify an admin email address
  */
 
 
 
 export const VerifyAdminBody = zod.object({
-  "phoneNumber": zod.string().min(1)
+  "email": zod.string().min(1)
 })
 
 export const VerifyAdminResponse = zod.object({

@@ -30,8 +30,8 @@ paths:
     post:
       operationId: verifyAdmin
       tags: [admin]
-      summary: Verify an admin phone number
-      description: Checks whether a phone number matches the configured admin phone secret.
+      summary: Verify an admin email address
+      description: Checks whether an email address matches the configured admin email secret.
       requestBody:
         required: true
         content:
@@ -57,11 +57,11 @@ components:
     AdminVerifyInput:
       type: object
       properties:
-        phoneNumber:
+        email:
           type: string
           minLength: 1
       required:
-        - phoneNumber
+        - email
     AdminAccess:
       type: object
       properties:

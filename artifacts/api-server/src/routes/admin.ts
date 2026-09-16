@@ -2,22 +2,22 @@ import { Router, type IRouter } from "express";
 import { VerifyAdminBody, VerifyAdminResponse } from "@workspace/api-zod";
 
 const router: IRouter = Router();
-const EXAMPLE_ADMIN_PHONE = "+2547xxxxxxx";
 
-function normalizePhone(phoneNumber: string) {
-  return phoneNumber.replace(/[^\d+]/g, "");
+function normalizeEmail(email: string) {
+  return email.trim().toLowerCase();
 }
 
 router.post("/admin/verify", (req, res) => {
   const parsed = VerifyAdminBody.safeParse(req.body);
   if (!parsed.success) {
-    res.status(400).json({ error: "A phone number is required." });
+    res.status(400).json({ error: "An email address is required." });
     return;
   }
 
-  const adminPhone = process.env.ADMIN_PHONE?.trim() || EXAMPLE_ADMIN_PHONE;
-  const authorized =
-    normalizePhone(parsed.data.phoneNumber) === normalizePhone(adminPhone);
+  const adminEmail = process.env.ADMIN_EMAIL?.trim();
+  const authorized = Boolean(
+    adminEmail && normalizeEmail(parsed.data.email) === normalizeEmail(adminEmail),
+  );
   const data = VerifyAdminResponse.parse({
     authorized,
     message: authorized ? "Admin access granted." : "Access denied - Admin only",

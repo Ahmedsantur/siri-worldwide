@@ -11,7 +11,7 @@ export interface HealthStatus {
 
 export interface AdminVerifyInput {
   /** @minLength 1 */
-  phoneNumber: string;
+  email: string;
 }
 
 export interface AdminAccess {

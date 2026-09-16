@@ -27,21 +27,21 @@ SIRI Worldwide is a mobile-first two-person chat app for sending messages betwee
 - `artifacts/siri-worldwide/src/lib/siri-persistence.ts` — Firebase Firestore REST persistence with localStorage demo fallback
 - `artifacts/siri-worldwide/src/index.css` — dark visual theme and responsive chat styling
 - `artifacts/siri-worldwide/.env.example` — Firebase web environment variable names
-- `artifacts/api-server/.env.example` — `ADMIN_PHONE` Secret placeholder
+- `artifacts/api-server/.env.example` — `ADMIN_EMAIL` Secret placeholder
 
 ## Architecture decisions
 
 - Firebase Firestore REST is used directly from the web client so the chat can persist without introducing a second application-specific API.
 - When Firebase is not configured, the app stays usable in local demo mode with seeded messages and localStorage persistence.
 - The first build models two demo identities instead of adding auth so the core send/translate flow is testable immediately.
-- Floor 2 admin access uses Firebase phone OTP in the browser and checks the signed-in phone number against the API server's `ADMIN_PHONE` Secret.
+- Floor 2 admin access uses Firebase Email/Password authentication in the browser and checks the signed-in email against the API server's `ADMIN_EMAIL` Secret.
 
 ## Product
 
 - Two people can switch speaking identities and send chat messages.
 - Each message has a globe action that reveals an English or Swahili translation.
 - Firebase-connected conversations poll for new messages every five seconds; preview mode persists locally.
-- `/admin` provides the OTP-gated admin archive with user cards and per-message deletion.
+- `/admin` provides the email/password-gated admin archive with user cards and per-message deletion.
 
 ## User preferences
 
@@ -50,8 +50,8 @@ SIRI Worldwide is a mobile-first two-person chat app for sending messages betwee
 ## Gotchas
 
 - Add `VITE_FIREBASE_PROJECT_ID` and `VITE_FIREBASE_API_KEY` to enable cross-device Firestore sync; otherwise the UI intentionally uses local demo mode.
-- Add `VITE_FIREBASE_AUTH_DOMAIN` and `VITE_FIREBASE_APP_ID` plus enable Phone sign-in in Firebase before using `/admin`.
-- Store the real `ADMIN_PHONE` in Replit Secrets; the server uses `+2547xxxxxxx` only as a documented example fallback when the Secret is absent.
+- Add `VITE_FIREBASE_AUTH_DOMAIN` and `VITE_FIREBASE_APP_ID` plus enable Email/Password sign-in in Firebase before using `/admin`.
+- Store the authorized admin email in the `ADMIN_EMAIL` Replit Secret.
 
 ## Pointers
 

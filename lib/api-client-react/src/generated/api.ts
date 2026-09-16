@@ -139,8 +139,8 @@ export const getVerifyAdminUrl = () => {
 }
 
 /**
- * Checks whether a phone number matches the configured admin phone secret.
- * @summary Verify an admin phone number
+ * Checks whether an email address matches the configured admin email secret.
+ * @summary Verify an admin email address
  */
 export const verifyAdmin = async (adminVerifyInput: AdminVerifyInput, options?: Parameters<typeof customFetch>[1]): Promise<AdminAccess> => {
 
@@ -206,7 +206,7 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
     export type VerifyAdminMutationVariables = {data: BodyType<AdminVerifyInput>}
 
     /**
- * @summary Verify an admin phone number
+ * @summary Verify an admin email address
  */
 export const useVerifyAdmin = <TError = ErrorType<unknown>,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof verifyAdmin>>, TError,VerifyAdminMutationVariables, TContext>, request?: SecondParameter<typeof customFetch>}
