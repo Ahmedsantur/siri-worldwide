@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: admin
+    description: Admin access operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /admin/verify:
+    post:
+      operationId: verifyAdmin
+      tags: [admin]
+      summary: Verify an admin phone number
+      description: Checks whether a phone number matches the configured admin phone secret.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminVerifyInput"
+      responses:
+        "200":
+          description: Access decision
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminAccess"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +54,22 @@ components:
           type: string
       required:
         - status
+    AdminVerifyInput:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          minLength: 1
+      required:
+        - phoneNumber
+    AdminAccess:
+      type: object
+      properties:
+        authorized:
+          type: boolean
+        message:
+          type: string
+      required:
+        - authorized
+        - message
 

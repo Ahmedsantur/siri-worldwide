@@ -6,7 +6,9 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { isFirebaseConfigured, loadMessages, markMessagesRead, saveMessage, type Message } from '@/lib/siri-persistence';
+import Admin from '@/pages/admin';
 
 const queryClient = new QueryClient();
 
@@ -300,11 +302,14 @@ function Home() {
             </div>
           </div>
           <div className="relative">
-            <button type="button" onClick={() => setShowConnectionDetails((current) => !current)} className="flex items-center gap-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card)/.7)] px-3 py-2 text-[11px] font-semibold text-[hsl(var(--muted-foreground))] shadow-[var(--shadow-sm)] transition hover:border-[hsl(var(--primary)/.4)] hover:text-[hsl(var(--foreground))]" aria-expanded={showConnectionDetails} data-testid="button-connection-status">
-              <span className={`h-2 w-2 rounded-full ${isFirebaseConfigured() ? 'bg-[hsl(var(--primary))] pulse-dot' : 'bg-[hsl(var(--accent))]'}`} />
-              <span className="hidden sm:inline">{isFirebaseConfigured() ? 'Firestore connected' : 'Local demo mode'}</span>
-              <Info className="h-3.5 w-3.5" />
-            </button>
+             <div className="flex items-center gap-2">
+               <Link href="/admin" className="hidden items-center gap-1.5 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card)/.7)] px-3 py-2 text-[11px] font-semibold text-[hsl(var(--muted-foreground))] shadow-[var(--shadow-sm)] transition hover:border-[hsl(var(--primary)/.4)] hover:text-[hsl(var(--foreground))] sm:inline-flex" data-testid="link-admin">Admin</Link>
+               <button type="button" onClick={() => setShowConnectionDetails((current) => !current)} className="flex items-center gap-2 rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card)/.7)] px-3 py-2 text-[11px] font-semibold text-[hsl(var(--muted-foreground))] shadow-[var(--shadow-sm)] transition hover:border-[hsl(var(--primary)/.4)] hover:text-[hsl(var(--foreground))]" aria-expanded={showConnectionDetails} data-testid="button-connection-status">
+                 <span className={`h-2 w-2 rounded-full ${isFirebaseConfigured() ? 'bg-[hsl(var(--primary))] pulse-dot' : 'bg-[hsl(var(--accent))]'}`} />
+                 <span className="hidden sm:inline">{isFirebaseConfigured() ? 'Firestore connected' : 'Local demo mode'}</span>
+                 <Info className="h-3.5 w-3.5" />
+               </button>
+             </div>
             {showConnectionDetails && <ConnectionCard onClose={() => setShowConnectionDetails(false)} />}
           </div>
         </header>
@@ -437,6 +442,7 @@ function Router() {
     <ErrorBoundary>
       <Switch>
         <Route path="/" component={Home} />
+         <Route path="/admin" component={Admin} />
         <Route component={NotFound} />
       </Switch>
     </ErrorBoundary>

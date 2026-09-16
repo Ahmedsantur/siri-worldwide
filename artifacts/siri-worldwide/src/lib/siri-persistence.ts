@@ -139,3 +139,13 @@ export async function markMessagesRead(messages: Message[]): Promise<void> {
   }
   await Promise.all(unread.map((message) => saveMessage({ ...message, isRead: true })));
 }
+
+export async function deleteMessage(messageId: string): Promise<void> {
+  if (!hasFirebase) {
+    const existing = await loadMessages();
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(existing.filter((message) => message.id !== messageId)));
+    return;
+  }
+  const response = await fetch(withApiKey(firestoreUrl(messageId)), { method: 'DELETE' });
+  if (!response.ok) throw new Error('SIRI could not delete this message.');
+}
