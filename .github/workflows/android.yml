@@ -5,18 +5,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: pnpm
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
-      - run: npm install
-      - run: npm run build
-      - run: npx cap add android
+      - run: pnpm install
+      - run: pnpm run build
+      - run: pnpm exec cap add android
         continue-on-error: true
-      - run: npx cap sync android
+      - run: pnpm exec cap sync android
       - run: cd android && chmod +x gradlew &&./gradlew assembleDebug
       - uses: actions/upload-artifact@v4
         with:
