@@ -16,7 +16,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - run: pnpm install
+      - run: pnpm install --no-frozen-lockfile
       - run: pnpm run build
       - run: pnpm exec cap add android
         continue-on-error: true
