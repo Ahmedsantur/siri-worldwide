@@ -16,7 +16,7 @@ jobs:
         run: npm install
       - name: Build Web
         run: npm run build
-      - name: Sync Capacitor
+      - name: Add Android
         run: |
           npx cap add android || true
           npx cap sync android
